@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="./build/react.js"></script>
+    <script src="./build/react-dom.js"></script>
+    <script src="./build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+        /**
+        *  表单事件响应和bind复用
+            0.
+              React.createClass 方法就用于生成一个组件类
+              所有组件类都必须有自己的 render 方法，用于输出组件。
+              render方法里面定义UI视图
+              // p.s. 组件类只能包含一个顶层标签
+            1.
+              onChange事件 监听文本框的变化
+        *   2.
+             getInitialState初始化state值
+              this.state 属性 是会随着用户互动而产生变化的特性。与this.props区别
+              this.setState 方法就修改状态值
+            3.读取文本框的值
+              通过onChange事件的回掉函数handleChange()里的
+                event.target.value读取
+            4. 
+              bind方法为事件相应函数增加一个参数
+              事件响应函数通过该参数识别事件源。
+            5.
+              三元运算符
+              将各个文本框集合到一个onchange的回调函数hanlerChange(name,event)
+              //本来onChange只能回调一个event的 bind的绑定可以为事件函数增加一个参数
+              文本框的name 将name属性传进去
+              就能实现不同文本框管理
+              //因为不同文本框的name必须是唯一的
+        */
+        var MyForm = React.createClass({
+            getInitialState:function(){
+                return{
+                    username:'',
+                    checked:true,
+                    gender:'female'
+                }
+            },
+            handleChange:function(name,event){
+                var newState = {};
+                //如果是checkedbox则获取他的checked值 如果是一般的文本框则获取他的value
+                newState[name] = name==="checked"?event.target.checked:event.target.value;
+                this.setState(newState);
+                console.log(newState);
+            },
+            submitHandler:function(e){
+                e.preventDefault();
+                var is = this.state.checked?'is':'is not';
+                var gender = this.state.gender == 'male'?'先森':'铝士';
+                console.log(this.state.username + is  + gender);
+            },
+            render:function() {
+                return(
+                    <form onSubmit={this.submitHandler}>
+                        <lable htmlFor='username'>请输入你的名字：</lable>
+                        <input type='text' name='username'  id = 'username'
+                            onChange={this.handleChange.bind(this,'username')}
+                            value={this.state.username}
+                        ></input>
+                        <br/>
+                        <lable htmlFor='checked'>是或者否(默认为是)</lable>
+                        <input type='checkbox' name='checked' value='是否' id='checkedbox'
+                            onChange={this.handleChange.bind(this,'checked')}
+                            value={this.state.checked}
+                        ></input>
+                        <br/>
+                        <lable htmlFor='username'>帅哥或者美女</lable>
+                        <select name='gender' 
+                            onChange={this.handleChange.bind(this,'gender')}
+                            value={this.state.gender}
+                        >
+                            <option value='male'>男</option>
+                            <option value='female'>女</option>
+                        </select>
+                        <br/>
+                        <button type='submit'>提交</button>
+                    </form>
+                )
+            }
+        });
+
+        ReactDOM.render(
+            <MyForm/>,
+            document.getElementById('example')
+        )
+
+    </script>
+  </body>
+</html>
