@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+      var NotesList = React.createClass({
+        render: function() {
+          return (
+            
+            //this.props.children   表示组件的所有子节点
+            //此值有三种可能： 
+            //  1.当前组件没有子节点 undefined
+            //  2.当前组件有一个子节点 数据类型是Object
+            //  3.当前组件有多个,数据类型为Array
+            <p>{this.props.children[2]}</p>
+
+
+            //可以用react提供的工具方法React.Children 来处理 this.props.children 。
+            //由此使用 React.Children.map 来遍历子节点
+            //不用担心 this.props.children 的数据类型是 undefined 还是 object
+            // <ol>
+            //   {
+            //     React.Children.map(this.props.children, function (child) {
+            //       return <li>{child}</li>;
+            //     })
+            //   }
+            // </ol>
+          );
+        }
+      });
+
+      ReactDOM.render(
+        <NotesList>
+          <p>hello</p>
+        </NotesList>,
+        document.getElementById('example')
+      );
+    </script>
+  </body>
+</html>
+

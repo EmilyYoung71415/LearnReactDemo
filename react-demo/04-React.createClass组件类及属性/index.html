@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/babel">
+        //React.createClass 方法就用于生成一个 [组件类]
+        //组件类的第一个字母必须大写
+        //组件类只能包含一个顶层标签
+        var HelloMessage = React.createClass({
+            //所有组件类都必须有自己的 render 方法，用于输出组件。
+            render: function() {
+              return <h1>Hello {this.props.name}</h1>;
+            }
+        });
+
+        ReactDOM.render(
+            //与原生的 HTML 标签完全一致，可以任意加入属性 然后js里用this.props.name读取
+            <HelloMessage name="John" />,
+            document.getElementById('example')
+            /*
+                注意：class属性要写成className
+                    for属性写成htmlFor
+            */
+        );
+    </script>
+  </body>
+</html>
