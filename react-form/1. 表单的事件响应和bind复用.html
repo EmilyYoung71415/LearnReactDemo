@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <script src="./build/react.js"></script>
-    <script src="./build/react-dom.js"></script>
-    <script src="./build/browser.min.js"></script>
+    <script src="../build/react.js"></script>
+    <script src="../build/react-dom.js"></script>
+    <script src="../build/browser.min.js"></script>
   </head>
   <body>
     <div id="example"></div>
@@ -49,7 +49,7 @@
                 //如果是checkedbox则获取他的checked值 如果是一般的文本框则获取他的value
                 newState[name] = name==="checked"?event.target.checked:event.target.value;
                 this.setState(newState);
-                console.log(newState);
+                //console.log(name + ' '+newState[name])
             },
             submitHandler:function(e){
                 e.preventDefault();
@@ -72,7 +72,7 @@
                             value={this.state.checked}
                         ></input>
                         <br/>
-                        <lable htmlFor='username'>帅哥或者美女</lable>
+                        <lable htmlFor='username'>男生或女生</lable>
                         <select name='gender' 
                             onChange={this.handleChange.bind(this,'gender')}
                             value={this.state.gender}
