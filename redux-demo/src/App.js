@@ -6,12 +6,19 @@ const counter = (state = {value: 0}, action) => {
     switch (action.type) {
         case 'INCREMENT':
         case 'DECREMENT':
-        return { value: state.value + action.payload.num };
+        return { value: state.value + action.num };
         default:
             return state;
     }
 }
 
+const counterActionGenerator = (type, num) => (num) => {
+    let action = { type, num : num }
+    return action
+}
+
+const addNumber = counterActionGenerator('INCREMENT', null)
+const minusNumber = counterActionGenerator('DECREMENT', null)
 class App extends Component {
     // State
     constructor() {
@@ -24,20 +31,22 @@ class App extends Component {
     }
     // Actions
     increment = () => {
-        this.dispatch({
-            type: 'INCREMENT',
-            payload:{
-                num:2
-            }
-        });
+        // this.dispatch({
+        //     type: 'INCREMENT',
+        //     payload:{
+        //         num:2
+        //     }
+        // });
+        this.dispatch(addNumber(2));
     };
     decrement = () => {
-        this.dispatch({
-            type: 'DECREMENT',
-            payload:{
-                num:-3
-            }
-        });
+        // this.dispatch({
+        //     type: 'DECREMENT',
+        //     payload:{
+        //         num:-3
+        //     }
+        // });
+        this.dispatch(minusNumber(-3));
     };
     render() {
         return ( 
