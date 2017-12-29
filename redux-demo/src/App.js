@@ -4,14 +4,6 @@ import './App.css';
 //reducer
 const counter = (state = {value: 0}, action) => {
     switch (action.type) {
-        // case 'INCREMENT':
-        //     return {
-        //         value: state.value + 1
-        //     };
-        // case 'DECREMENT':
-        //     return {
-        //         value: state.value - 1
-        //     };
         case 'INCREMENT':
         case 'DECREMENT':
         return { value: state.value + action.payload.num };
