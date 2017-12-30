@@ -1,10 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
 import './index.css';
-//import App from './App';
-import MyCounter from './Components/Counter/counter'
+import store from './Redux/Store/store';
+//import App from './Containers/container'
+import route from './Router/router';//路由配置
 import registerServiceWorker from './registerServiceWorker';
 
-//ReactDOM.render(<App />, document.getElementById('root'));
-ReactDOM.render(<MyCounter />, document.getElementById('root'));
+store.subscribe(() => { //监听state变化
+    console.log(store.getState())
+});
+ReactDOM.render(
+    <Provider store={store}>
+        {route}
+    </Provider>,
+    document.getElementById('root')
+);
 registerServiceWorker();

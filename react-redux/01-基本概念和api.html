@@ -9,20 +9,7 @@
   </head>
   <body>
     <div id="example"></div>
-    <script type="text/babel">
-       
-        var MyCounter = React.createClass({
-            render:function() {
-                return(
-                    
-                )
-            }
-        });
-
-        ReactDOM.render(
-            <MyCounter/>,
-            document.getElementById('example')
-        )
+    <script >
         /*
             1.设计思想
                 （1）Web 应用是一个状态机，视图与状态是一一对应的。
@@ -61,7 +48,29 @@
                 纯函数
                 store.subscribe()
                     Store 允许使用store.subscribe方法设置监听函数，一旦 State 发生变化，就自动执行这个函数。
+        
+        
         */
+
+        /*
+            store： Store是我们储存状态数据state的地方
+            创建store :通过redux当中的createStore方法
+                import { createStore } from 'redux'
+                import counter from './reducers'
+                const store = createStore(counter)
+            @param:counter =>之前定义好的reducer函数
+            store即为存储reducer方法处理的并内置状态数据的仓库
+            此时通过createStore生成的store有三个方法：
+                getState: 获取当前存储中的状态数据。
+                dispatch:
+                    1.将传入的action操作执行(根据传入的action具体调用reducer来获取新的状态数据)
+                    2.触发listeners事件监听器(触发所有的listener，响应状态数据改变之后的动作)
+
+                subscribe:添加listener的方法,同时它会返回一个unsubscribe的方法用来取消listener
+        
+         */
+        
+       
     </script>
   </body>
 </html>

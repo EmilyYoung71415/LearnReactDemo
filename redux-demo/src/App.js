@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './App.css';
 
 //reducer
 const counter = (state = {value: 0}, action) => {

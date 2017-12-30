@@ -1,11 +1,16 @@
 /**
  *  @author yxy
- *  @desc store 负责具体执行action动作
- *  @date 2017/12/29
+ *  @desc store 
+ *  @date 2017/12/30
  */
 
-import {createStore} from 'redux';
-import counter from '../Reducer/reducer';
-//创建一个store存放所有数据
-var store = createStore(counter);
- export default store;
+import {createStore, combineReducers} from 'redux';
+import * as reducer from '../Reducer/reducer';
+
+//使用createStore()创建一个store用来存储reducer方法处理的状态数据
+let store = createStore(
+    //使用redux的combineReducers方法将所有reducer打包起来
+    combineReducers(reducer)
+);
+
+export default store;

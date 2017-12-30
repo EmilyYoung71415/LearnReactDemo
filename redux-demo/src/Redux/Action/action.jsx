@@ -5,11 +5,11 @@
  */
 import * as counterType from './actionType'
 
-// const dispatch = (action) => {
-//     this.setState(prevState => counter(prevState, action));
-// }
-
-
+/**
+ * 定义一个函数来生成Action
+ * @param type,num
+ * @returns   { type, num : num }
+*/
 const counterActionGenerator = (type, num) => (num) => {
     let action = { type, num : num }
     return action

@@ -1,32 +1,18 @@
 import React, {Component} from 'react';
-import counter from '../../Redux/Reducer/reducer';
-import {minusNumber,addNumber} from '../../Redux/Action/action';
+import '../../Style/counter.css'
 
  class MyCounter extends Component {
-    // State
-    constructor() {
-        super();
-        this.state = counter(undefined, {});
-    }
-
-    dispatch(action) {
-        this.setState(prevState => counter(prevState, action));
-    }
-    // Actions
-    increment = () => {
-       // this.setState(prevState => console.log(prevState));
-        this.dispatch(addNumber(2));
-    };
-    decrement = () => {
-        this.dispatch(minusNumber(-3));
-    };
     render() {
+        const {  value,onIncrement, onDecrement } = this.props
+        // 参数 value=> 由state计算得到
+        // 方法 onIncrement onDecrement => 向外发出action
         return ( 
-            <div>
+            <div className='div_class_counter'>
                 <h1>简单计数器Demo</h1>
-                <p>{this.state.value}</p>
-                <button onClick={this.increment}>+</button>
-                <button onClick={this.decrement}>-</button>
+                <p>{value}</p>
+                <button onClick={onIncrement}>+ 每次加2</button>
+                <button onClick={onDecrement}>- 每次减3</button>
+            
             </div>
         );
     }
