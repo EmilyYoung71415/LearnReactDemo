@@ -1,15 +1,15 @@
 /**
  *  @author yxy
- *  @desc 容器组件 实现映射
+ *  @desc 以UI组件填充逻辑生成容器组件
  *  @date 2017/12/30
  */
 import { connect } from 'react-redux'
-import MyCounter from '../Components/Counter/counter'
-import {addNumber,minusNumber} from '../Redux/Action/action'
+import MyCounter from '../../Components/Counter/counter'
+import {addNumber,minusNumber} from '../Action/action'
 
 // 将 Redux state 映射到 component props
 const mapStateToProps = (state) => {
-    //console.log(state.default.count)
+    //console.log(state)
     return {
         value:state.default.count
     }
