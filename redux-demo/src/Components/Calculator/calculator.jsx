@@ -43,9 +43,10 @@ class MyCalculator extends Component {
     checkClickType(oldvalue,value){
         switch (value) {
             case '=':
+                let resultbefore = oldvalue + '=' ; 
                 //向外分发action
-                this.props.equalClick();
-                let result =  oldvalue + '=' + this.props.revdata;
+                this.props.equalClick(oldvalue);
+                let result =  resultbefore + this.props.revdata;
                 return result;
             case 'C':
                 //删除最后一位
@@ -100,10 +101,10 @@ function mapStateToProps(state) {
 }
   
 //将UI组件的props与redux的action映射
-function mapDispatchToProps(dispatch,ownProps) {
+function mapDispatchToProps(dispatch) {
     return {
         //用户的onIncreaseClick方法与action映射([3]定义action),通过dispatch触发reducer
-        equalClick: () => dispatch(getResult(ownProps))
+        equalClick: (value) => dispatch(getResult(value))
     }
 }
 
@@ -133,9 +134,11 @@ const App = connect(
  *  @desc 根据action 返回新的state
  */
 function getRev(state = { revdata: 0 }, action) {
-    const rev = state.revdata
+    //action.num即是等号前面的字符串
+   // const rev = state.revdata
     switch (action.type) {
       case EQUEALBTN:
+        console.log(action.num)
         return { revdata:   1 }
       default:
         return state
@@ -150,7 +153,7 @@ const store = createStore(getRev)
 
 
 
-export default {
+export  {
     store,
     App
 };
