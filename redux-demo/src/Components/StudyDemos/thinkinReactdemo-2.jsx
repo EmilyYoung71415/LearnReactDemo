@@ -86,7 +86,7 @@ class FilterableProductTable extends React.Component {
     render() {
       return (
         <div>
-        {/* {
+        {/*{
             [3] 将state做为prop传入需要state的子组件
         } */}
           <SearchBar

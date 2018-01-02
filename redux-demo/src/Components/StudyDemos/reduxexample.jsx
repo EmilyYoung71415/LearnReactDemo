@@ -90,6 +90,7 @@ const store = createStore(counter)
 /**
  *  [7] 使用Provider组件在根组件外面包一层 App及其子组件就可以拿到state了
  */
+
 // ReactDOM.render(
 //   <Provider store={store}>
 //     <App /> 
