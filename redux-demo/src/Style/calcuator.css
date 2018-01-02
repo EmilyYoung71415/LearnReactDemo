@@ -27,7 +27,7 @@ body {
 
 .div_class_buttonlist{
     width: 600px;
-    height: 360px;
+    height: 400px;
     padding-top: 20px;
     display: flex;
     flex-flow: row wrap;

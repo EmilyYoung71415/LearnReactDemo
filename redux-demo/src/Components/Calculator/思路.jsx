@@ -48,3 +48,92 @@
  *  五. 添加反向数据流
  * 
  */
+
+
+
+
+ 
+
+
+/**
+ *  @desc 定义定义映射 输入输出逻辑
+ *  @func 功能模块--container
+ *  将UI组件的value值[props]映射到state
+ *  将UI组件的方法映射到action 通过dispatch触发action
+ */
+
+//将UI组件的props与redux的state映射
+function mapStateToProps(state) { //TODO:将所有的function改为箭头函数
+    return {
+        value: state.value
+    }
+}
+  
+//将UI组件的props与redux的action映射
+function mapDispatchToProps(dispatch) {
+    //判断当前按钮的值 根据不同的值来确定不同按钮的分发action
+    //console.log(onButtonClick)
+    return {
+        //用户的按钮点击onButtonClick方法与action映射([3]定义action),通过dispatch触发reducer
+        //onButtonClick: () => dispatch(increaseAction)
+        //dispatch(这里面的action是事先定义好的)
+    }
+}
+
+/**
+ *  @desc 定义action 
+ *  定义action 纯函数 输入什么输出什么 收到的action返回一个type字段
+ *  dispatch拿着这个type字段去找reducer，reducer根据不同type匹配不同的动作 并最终返回一个新state
+ *  @func 功能模块--action
+ *  依据按钮的不同值来确定按钮的actiontype [之前是加减对应不同的函数，不同的函数即对应不同的type]
+ *  @param 两个action：
+ *         1.常规按钮 NORMALBTN //按钮值增加到input框中
+ *         2.等于按钮 EQUALBTN //按钮值添加到input框并计算结果,最后把结果放到input框中
+ */
+
+const NORMALBTN = 'NORMALBTN';
+const EQUALBTN = 'EQUALBTN';
+const normalAction = { type: NORMALBTN }
+const equalAction = { type: EQUALBTN }
+
+/**
+ *  @desc 给UI组件用connect()方法附上输入输出逻辑[逻辑],生成一个容器组件App
+ *  @func 功能模块--container
+ */
+
+const App = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MyCalculator)
+
+
+
+/**
+ *  @desc 用户触发什么action对应返回一个经过reducer处理的新state，不同type对应不同的处理方式
+ *  @func 功能模块--reducer
+ */
+function convertType(state ={value:0}, action) {
+    switch (action.type) {
+    case NORMALBTN:
+        return {
+            value: state.value
+         };
+    case EQUALBTN:
+        return{ 
+            value: state.value + '222'   //测试 
+        }; 
+    default:
+        return state
+    }
+  }
+
+/**
+ *  @desc 以reducer做为传入值生成一个store对象
+ *  @func 功能模块--store
+ */
+const store = createStore(convertType)
+
+/**
+ *  最后
+ *  @desc 使用Provider组件在根组件外面包一层 App及其子组件就可以拿到state了
+ */
