@@ -4,5 +4,6 @@
  *  @date 2017/12/29
  */
 
-export const INCREMENT = 'INCREMENT'
-export const DECREMENT = 'DECREMENT'
+export const INCREMENT = 'INCREMENT';
+export const DECREMENT = 'DECREMENT';
+export const EQUEALBTN = 'EQUEALBTN'; 

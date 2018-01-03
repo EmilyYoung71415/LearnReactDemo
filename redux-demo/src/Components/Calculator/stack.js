@@ -37,7 +37,7 @@ function Stack(){
         return this.top;
     }
     function isempty(){
-        return this.top == 0;
+        return this.top === 0;
     }
 }
 
@@ -58,15 +58,15 @@ function initPrior(){
 function isOperator(data,priorarr){
     let rev = false;
     priorarr.forEach(element => {
-        if(data == element){
+        if(data === element){
             rev = true;
         }
     });
     return rev;
 }
 
-// const testdata = ' ( 3 + 4 )  * 5 - 6'
-// suffixExpression(testdata)
+//const testdata = ' ( 3 + 4 )  * 5 - 6'
+//suffixExpression(testdata)
 
 
 //中缀转后缀
@@ -77,9 +77,8 @@ function suffixExpression(str){
     //var str = 'a + b * c +  ( d * e + f ) * g'; //a b c * + d e * f  + g * +
     let strarr = str.split(" ");
     var stack = new Stack();
-    var outStack = new Array();
-    let aaaa = stack.dataStore;
-    while(strarr.length!=0){
+    var outStack = [];
+    while(strarr.length!==0){
         /**顺序扫描中缀表达式
          * 如果是'' 不做处理
          * 1.如果是操作数 则直接存入数组
@@ -96,7 +95,7 @@ function suffixExpression(str){
             扫描完毕整个中缀表达式后，检测操作符栈，依次弹出其元素，并将其元素顺序存入到数组中
         */
         //如果是空
-        if(strarr[0]==''){
+        if(strarr[0]===''){
             strarr.shift();
             continue;
         }
@@ -107,14 +106,14 @@ function suffixExpression(str){
         //如果操作符
         else{
             //如果为“(”，则将其直接入栈；
-            if(strarr[0]=='('){
+            if(strarr[0]==='('){
                 stack.push(strarr[0])
             }
             //如果为“)”
-            else if(strarr[0]==')'){ 
+            else if(strarr[0]===')'){ 
                 //遍历栈,当栈顶不是( 时一直执行弹栈压数组的操作[栈一直更新]
                 //当栈顶是(时 则仅仅将栈弹出即可,随后删除strarr.shift()
-                while(stack.peek()!='('){
+                while(stack.peek()!=='('){
                     outStack.push(stack.pop());
                 } 
                 //当栈顶是(时 跳出while循环 删除栈顶元素
@@ -133,7 +132,7 @@ function suffixExpression(str){
                     }
                     //否则弹出中优先级大于等于当前操作符优先级的操作符，并最后将当前操作符压栈
                     else{
-                        while(!stack.isempty()&&priorValue[stack.peek()]>=priorValue[strarr[0]]&&stack.peek()!='('){
+                        while(!stack.isempty()&&priorValue[stack.peek()]>=priorValue[strarr[0]]&&stack.peek()!=='('){
                             outStack.push(stack.pop());
                         }
                         stack.push(strarr[0]);
@@ -148,16 +147,14 @@ function suffixExpression(str){
     while(!stack.isempty()){
         outStack.push(stack.pop());
     }
-    countSuffixExpression(outStack);
-   //返回一个转为后缀表达式的数组
+    let revData = countSuffixExpression(outStack);
+    return revData;
 }
 
-const data =  ["2", "10", "2", "-", "6", "*", "+"];
-countSuffixExpression(data);
 //用栈结构求后缀表达式的值
 function countSuffixExpression(revarr){
     let stack =  new Stack();
-    while(revarr.length!=0){
+    while(revarr.length!==0){
         //不会出现值为空的情况
         //如果是操作数
         if(!isOperator(revarr[0],priorName)){
@@ -177,14 +174,15 @@ function countSuffixExpression(revarr){
                     result = Number(followdata) * Number(topdata);break;
                 case '/':
                     result = Number(followdata) / Number(topdata);break;
+                default:
+                    return revarr[0];
             }
-            stack.pop();
+            stack.pop();//删除栈顶的第二个元素
             stack.push(result);
         }
         revarr.shift();
     }
     let resultData = stack.pop();
-    console.log(resultData)
     return resultData;
 }
 /**
@@ -192,7 +190,9 @@ function countSuffixExpression(revarr){
  *  1. 从左到右扫描后缀表达式
  *  2. 如果是操作数 则压入栈中
  *     如果是操作符 取栈顶的两个元素 栈顶邻近的元素 操作符[如减] 栈顶元素
- *                  并将所得压入栈中[要删除栈顶的两个元素] 成为栈顶元素
+ *                  并将所得压入栈中 成为栈顶元素
  *  3. 直至扫描完毕
- *  4. 扫描后缀表达式完毕之后，取栈顶，即为运算结果
+ *  4. 扫描后缀表达式完毕之后，栈中只剩一个元素，即为运算结果
  */
+
+ export default suffixExpression;

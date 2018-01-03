@@ -10,9 +10,12 @@ import * as counterType from './actionType'
  * @param type,num
  * @returns   { type, num : num }
 */
-const counterActionGenerator = (type, num) => (num) => {
+const ActionGenerator = (type, num) => (num) => {
     let action = { type, num : num }
     return action
 }
-export const addNumber = counterActionGenerator(counterType.INCREMENT, null)
-export const minusNumber = counterActionGenerator(counterType.DECREMENT, null)
+//计数器
+export const addNumber = ActionGenerator(counterType.INCREMENT, null);
+export const minusNumber = ActionGenerator(counterType.DECREMENT, null);
+//计算器
+export const getResult = ActionGenerator(counterType.EQUEALBTN, null);

@@ -4,6 +4,7 @@ import '../../Style/counter.css'
  class MyCounter extends Component {
     render() {
         const {  value,onIncrement, onDecrement } = this.props
+        console.log(this.props)
         // 参数 value=> 由state计算得到
         // 方法 onIncrement onDecrement => 向外发出action
         /**

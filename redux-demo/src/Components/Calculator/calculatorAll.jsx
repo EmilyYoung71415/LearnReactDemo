@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
+import { createStore } from 'redux'
+import { connect } from 'react-redux'
+import suffixExpression from './stack'
 import '../../Style/calcuator.css'
+
+
 const KEYVALUE = [
     {value: '7'},
     {value: '8'},
@@ -101,5 +106,71 @@ class MyCalculator extends Component {
     }
 }
 
+/**
+ *  @func 模块--container
+ *  @desc 定义映射
+ */
+//将UI组件的props与redux的state映射
+function mapStateToProps(state) {
+    return {
+        revdata: state.revdata
+    }
+}
+  
+//将UI组件的props与redux的action映射
+function mapDispatchToProps(dispatch) {
+    return {
+        //用户的onIncreaseClick方法与action映射([3]定义action),通过dispatch触发reducer
+        equalClick: (value) => dispatch(getResult(value))
+    }
+}
 
-export default MyCalculator;
+/**
+ *  @func 模块--action
+ *  @desc 
+ */
+const EQUEALBTN = 'EQUEALBTN'; //常规按钮
+const ActionGenerator = (type, num) => (num) => {
+    let action = { type, num : num }
+    return action
+}
+const getResult = ActionGenerator(EQUEALBTN, null);
+
+
+/**
+ * @func 模块--connect
+ */
+const App = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MyCalculator)
+
+
+/**
+ *  @func 模块--reducer
+ *  @desc 根据action 返回新的state
+ */
+function getRev(state = { revdata: 0 }, action) {
+    //action.num即是等号前面的字符串
+    switch (action.type) {
+      case EQUEALBTN:
+        //let test = '1 + 78 + 22 + ( 10 - 2 )  * 6';
+        let rev = suffixExpression(action.num)
+        return { revdata:   rev }
+      default:
+        return state
+    }
+}
+
+/**
+ *  @func 模块--store
+ *  @desc 以reducer生成store对象
+ */
+const store = createStore(getRev)
+
+
+
+export  {
+    store,
+    App
+};

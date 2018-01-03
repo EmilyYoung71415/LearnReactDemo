@@ -42,8 +42,8 @@ class MyCounter01 extends Component {
       return (
         <div>
           <p>{this.state.value}</p>
-          <button onClick={this.increment}>+</button>
-          <button onClick={this.decrement}>-</button>
+          <button onClick={this.increment} style={{width:'40px'}}>+</button>
+          <button onClick={this.decrement} style={{width:'40px'}}>- </button>
         </div>
       )
     }
