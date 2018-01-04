@@ -183,6 +183,10 @@ function countSuffixExpression(revarr){
         revarr.shift();
     }
     let resultData = stack.pop();
+    //console.log(resultData);
+    //resultData.toFixed(2)//js浮点数的精确度问题粗略解决 如果输入7=则toFixed(2)抛出错误
+    if(isNaN(resultData)) resultData = '错误';
+    if(resultData === Infinity) resultData = '无穷';
     return resultData;
 }
 /**
