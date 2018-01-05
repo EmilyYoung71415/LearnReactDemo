@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import wrapWithTryCatch from 'react-try-catch-render';
-import MyErrorHandler from '../../Error/error'
+import MyErrorHandler from '../../Error/error';
+import getSpValue from './getSpValue';
 import '../../Style/calcuator.css'
 //标准 standard
 const KEYVALUEST = [
@@ -59,9 +60,9 @@ const KEYVALUESC = [
     {value: 'sin',type:'spoperator'},
     {value: 'cos',type:'spoperator'},
     {value: 'tan',type:'spoperator'},
-    {value: 'lg',type:'spoperator'},
+    {value: 'ln',type:'spoperator'},
     {value: '历史',type:'history'},
-    {value: '展开 | 收缩',type:'change'},
+    {value: '展开 | 折叠',type:'change'},
     {value: '=',type:'equal'}
 ];
 class MyCalculator extends Component {
@@ -70,7 +71,9 @@ class MyCalculator extends Component {
         this.state = {
             valueText: '0',
             equalFlag:false,//当前计算状态:计算后或计算前
-            errorFlag:false
+            errorFlag:false,//是否有抛出错误
+            historyArr:[],//历史记录 时间+计算值
+            clearHisFlag:false//当前是否清楚历史记录
         }
     }
     handleValueInput(data) {
@@ -79,12 +82,14 @@ class MyCalculator extends Component {
         this.setState({valueText:rev})
     }
     checkClickType(oldvalue,data){
+        this.setState({clearHisFlag:false});//每次新按键就是一次重新记录
         let initFlag = oldvalue === '0'&&data.type!=='point';//初次输入且不打算输入小数
         let calAfterFlag = this.state.equalFlag===true;//计算后
         switch (data.type) {
             case 'equal':
                 let resultbefore = oldvalue + ' =' ; 
-                this.props.equalClick(oldvalue);//向外分发action
+                let prevresult = getSpValue(oldvalue);//预处理特殊操作符
+                this.props.equalClick(prevresult);//向外分发action
                 this.setState({equalFlag:true});
                 return resultbefore;
             case 'back':
@@ -155,9 +160,27 @@ class MyCalculator extends Component {
         });
         return list;
     }
+    //生成历史记录列表
+    initHistoryList=(list,value)=>{
+        if(value == null){//清空记录
+            this.setState({historyArr:[],clearHisFlag:true});
+            list = [];
+            return list;
+        }
+        value.forEach(data=>{
+            list.push(
+                <div key={data.time}>
+                    <i>{data.time}</i>
+                    <p>{data.value}</p>
+                </div>
+            )
+        })
+        return list;
+    }
     render() {
         const {revdata} = this.props;
-        let buttonlist = [];
+        let buttonlist = [];//按钮列
+        let historyList = [];//历史记录列
         if(this.state.errorFlag){
             throw new Error('除数不能为零！');
         }
@@ -169,25 +192,47 @@ class MyCalculator extends Component {
         let curValue = str;
         if(laststr === '='){
             curValue = str +' '+revdata;
+            if(!this.state.clearHisFlag){
+                //存放历史信息
+                let myDate =  new Date();
+                let time = myDate.toLocaleString();
+                this.state.historyArr.push({time:time,value:curValue});
+            }
         }
-        return ( 
-            <div className='div_class_calculator'>
-               <div className='div_class_showdatabar'>
-                    <h1>简易计算器</h1>
-                    <input type="text"
-                        value={curValue} 
-                        readOnly
-                    />
+        historyList = this.initHistoryList(historyList,this.state.historyArr)
+        return (
+            <div className='div_class_All'>
+                <div className='div_class_calculator'>
+                    <div className='div_class_showdatabar'>
+                        <h1>简易计算器</h1>
+                        <input type="text"
+                            value={curValue} 
+                            readOnly
+                        />
+                    </div>
+                    <div className='div_class_choosetype'>
+                        <span >标准</span>
+                        <span>|</span>
+                        <span className='active'>科学</span>
+                    </div>
+                    <div className='div_class_buttonlist'>
+                        {buttonlist}
+                    </div>
                 </div>
-                <div className='div_class_choosetype'>
-                    <span >标准</span>
-                    <span>|</span>
-                    <span className='active'>科学</span>
+                <div className='div_class_historybox'>
+                    <p>折叠</p>
+                    <div className='div_class_historydetail'>
+                        <span>历史计算</span>
+                        <div>
+                            {historyList}
+                        </div>
+                        <p className='btn'
+                             onClick={this.initHistoryList.bind(this,historyList,null)}
+                            >清空历史记录</p>
+                    </div>
+                    
                 </div>
-                <div className='div_class_buttonlist'>
-                    {buttonlist}
-                </div>
-            </div>
+            </div> 
         );
     }
 }

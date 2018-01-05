@@ -4,7 +4,7 @@
  *  @date 2017/12/29
  */
 import {INCREMENT, DECREMENT,EQUEALBTN} from '../Action/actionType'
-import suffixExpression from '../../Components/Calculator/stack'
+import suffixExpression from '../../Components/Calculator/getAllValue'
 
 
 //计数器reducer函数
