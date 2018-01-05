@@ -5,16 +5,19 @@
  *  作用：捕捉到错误之后则展示这个界面
  */
 import React from 'react';
-import MyCalculator from '../Components/Calculator/calculator';
+import { Redirect } from 'react-router-dom'; 
+//import MyCalculator from '../Components/Calculator/calculator';
 class MyErrorHandler extends React.Component {
     render(){
-        let errorMessage = this.props.error;        
-        if(errorMessage){
-            alert(errorMessage)   
+        let errorInfo = this.props.errorInfo; 
+        let errorPath = this.props.errorPath;    
+        //console.log(errorPath)   
+        if(errorInfo){
+            alert(errorInfo)   
         }
-        return (
-            <MyCalculator/>
-        ); 
+        if(errorPath){
+            return <Redirect push to={errorPath} />; 
+        }
     }
 }
 export default MyErrorHandler;

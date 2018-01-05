@@ -49,7 +49,9 @@ class ErrorBoundary extends React.Component {
         counter: counter + 1
       }));
     }
-    
+    componentWillReceiveProps(nextProps){
+        
+    }
     render() {
       if (this.state.counter === 5) {
         // Simulate a JS error

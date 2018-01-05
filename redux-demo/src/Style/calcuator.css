@@ -4,7 +4,7 @@
     padding-top: 15px;
     width: 640px;
     height: auto;
-    overflow: hidden;
+    /* overflow: hidden; */
     border: #fff 1px solid;
     padding-bottom: 10px;
     background-color: #f2f2f2;
@@ -18,11 +18,24 @@
     font-size: 24px;
     font-weight:bold;
 }
-
+/*标准科学选择*/
+.div_class_choosetype{
+    text-align: left;
+    margin-left: 20px;
+}
+.div_class_choosetype span{
+    color:#555;
+    font-size: 20px;
+    padding: 0 2px;
+    cursor: pointer;
+}
+.div_class_choosetype .active{
+    color:orangered;
+}
 .div_class_buttonlist{
     width: 600px;
-    height: 400px;
-    padding-top: 20px;
+    height: auto;
+    padding: 10px 0;
     display: flex;
     flex-flow: row wrap;
     margin: auto;
@@ -37,4 +50,17 @@
     margin-top: 8px;
     margin-right: 5px;
 }
+/*等号*/
+.div_class_button:nth-last-child(1),.div_class_button:nth-last-child(2){
+    flex: 0 0 40%;
+}
+/*展开收缩*/
+.div_class_button:nth-last-child(1){
+    font-size: 45px;
+    font-weight: bold;
+    background: orangered;
+    color: #fff;
+    margin-left: 100px;
+}
+
 
