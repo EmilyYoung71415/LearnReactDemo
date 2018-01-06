@@ -59,10 +59,11 @@ const convertSpdata=(spdata)=>{
     else if(spdata === 'π'){
         rev = Math.PI;
     }
-    //平方
+    //平方 或 x的y次方
     else if(spdata.indexOf('^')!==-1){
-        let str_before = spdata.split('^')[0];
-        rev = Number(str_before) * Number(str_before);
+        let data_before =Number(spdata.split('^(')[0]);
+        let data_after = Number(spdata.split('^(')[1]);
+        rev = data_before ** data_after;// 2**3
     }
     //求余
     else if(spdata.indexOf('%')!==-1){

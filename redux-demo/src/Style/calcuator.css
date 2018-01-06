@@ -1,6 +1,7 @@
 .div_class_All{
     display: flex;
     justify-content: space-between;
+    overflow: hidden;
 }
 .div_class_calculator{
     text-align: center;
@@ -71,16 +72,30 @@
 
 /*历史记录面板*/
 .div_class_historybox{
+/*.div_class_historybox_fold:hover{*/
     margin: 15px 0;
     width: 470px;
     height: 680px;
+    cursor: pointer;
     display: flex;
     justify-content: flex-start;
     opacity: 0.8;
     background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
     box-shadow:0px 5px 5px #90A4AE;
+    transition: 0.8s;
 }
-.div_class_historybox>p{
+.div_class_historybox_fold{
+    margin: 15px 0;
+    width: 35px;
+    overflow: hidden;
+    height: 680px;
+    opacity: 0.8;
+    background-image: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
+    box-shadow:0px 5px 5px #90A4AE;
+    transition: 0.6s;
+}
+/*展开折叠按钮*/
+.div_class_historybox>p,.div_class_historybox_fold>p{
     width: 20px;
     height: 680px;
     display: flex;
@@ -110,6 +125,7 @@
     margin:15px 0;
     flex: 1;
 }
+/*时间*/
 .div_class_historydetail div>i{
     margin-right:240px;
     font-size: 16px;
@@ -118,6 +134,9 @@
     background: #FF5C5C;
     color: #fff;
     border-radius: 4px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 .div_class_historydetail div p{
     font-size: 20px;
