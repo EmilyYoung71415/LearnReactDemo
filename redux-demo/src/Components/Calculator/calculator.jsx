@@ -73,7 +73,7 @@ class MyCalculator extends Component {
             historyArr:[],//历史记录 时间+计算值
             clearHisFlag:false,//当前是否清除历史记录
             foldFlag:true,//折叠面板 默认为true
-            isSTFlag:true//默认为标准计算器
+            isSTFlag:false//默认为科学计算器
         }
     }
     //监听所有按钮的click事件
@@ -95,7 +95,8 @@ class MyCalculator extends Component {
                 this.setState({equalFlag:true});
                 return resultbefore;
             case 'change':
-                this.changeStateFlag('foldFlag');break;
+                this.changeStateFlag('foldFlag');
+                break;
             case 'back':
                 oldvalue =  oldvalue.substring(0,oldvalue.length-1)//删除最后一位
                 return oldvalue;
@@ -175,7 +176,7 @@ class MyCalculator extends Component {
             valueText:toShowdata,//获取最新计算结果
         })
         let myDate = new Date();
-        let time = myDate.toLocaleTimeString();
+        let time = myDate.toLocaleString();
         this.state.historyArr.push({time:time,value:toShowdata});
     }
     //生成按钮列表
@@ -196,6 +197,7 @@ class MyCalculator extends Component {
             this.setState({historyArr:[],clearHisFlag:true});
             list = [];
         }else{
+            valuearr.reverse();//最新计算置顶
             valuearr.forEach(data=>{
                 list.push(
                     <div key={data.time}>

@@ -72,7 +72,6 @@
 
 /*历史记录面板*/
 .div_class_historybox{
-/*.div_class_historybox_fold:hover{*/
     margin: 15px 0;
     width: 470px;
     height: 680px;
@@ -119,10 +118,11 @@
     color:#071A52;
     border-bottom: 2px solid #071A52;
 }
-
+/*内容页的中间部分*/
 .div_class_historydetail div{
     font-size: 20px;
-    margin:15px 0;
+    margin:15px 0; 
+    overflow-y: auto;
     flex: 1;
 }
 /*时间*/
@@ -151,4 +151,9 @@
     color:#fff;
     background: #FF5C5C;
     cursor: pointer;
+    /*color:#4286F5;
+    color:#4285F4;
+    color:#A8C8FE;*/
 }
+
+

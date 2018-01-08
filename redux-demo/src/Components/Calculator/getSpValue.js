@@ -22,11 +22,9 @@ function isOperator(data,priorarr){
 }
 
 const getSpValue =(str)=>{
-    //console.log(str)
     let newArr = []; 
     let newStr = '';
     let strArr = str.split(' ');
-    //console.log(strArr)
     strArr.forEach(ele=>{
         if(!isOperator(ele,operatorName)&&ele!==''){//不是操作符
             let n = Number(ele);
@@ -37,10 +35,8 @@ const getSpValue =(str)=>{
         }
         newArr.push(ele);
     })
-    //console.log(newArr);
     newStr = newArr.join(' ');
     return newStr;
-    //console.log(newStr);
  }
 
 

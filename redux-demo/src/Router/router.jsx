@@ -19,7 +19,8 @@ const RouteConfig = (
             </ul>
             <Route path="/demostep1" component={Counter01}/>
             <Route path="/counter" component={MyCounter}/>
-            <Route path="/calculator" component={MyCalculator}/>
+            <Route path="/calculator" component={MyCalculator} exact/>
+            
         </div>
     </Router>
 );
