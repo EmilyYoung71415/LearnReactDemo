@@ -6,12 +6,10 @@
  */
 import React from 'react';
 import { Redirect } from 'react-router-dom'; 
-//import MyCalculator from '../Components/Calculator/calculator';
 class MyErrorHandler extends React.Component {
     render(){
         let errorInfo = this.props.errorInfo; 
-        let errorPath = this.props.errorPath;    
-        //console.log(errorPath)   
+        let errorPath = this.props.errorPath;     
         if(errorInfo){
             alert(errorInfo)   
         }

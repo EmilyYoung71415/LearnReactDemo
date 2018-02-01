@@ -173,7 +173,7 @@ class MyCalculator extends Component {
         let toShowdata = this.state.valueText +' = '+ nextProps.revdata;
         this.setState({
             errorFlag:false,//捕获错误返回该组件之后 更新错误状态
-            valueText:toShowdata,//获取最新计算结果
+            valueText:  ,//获取最新计算结果
         })
         let myDate = new Date();
         let time = myDate.toLocaleString();
